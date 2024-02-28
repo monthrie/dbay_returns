@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import { Link } from "react-router-dom";
 
 export default function InfoPage() {
   const navigate = useNavigate();

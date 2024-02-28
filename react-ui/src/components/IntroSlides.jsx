@@ -5,6 +5,9 @@ import free from '../assets/images/free-forever.png';
 import revolution from '../assets/images/revolution.png';
 import marketplace from '../assets/images/marketplace.png';
 import Box from '@mui/material/Box';
+import { useNavigate } from "react-router-dom";
+import { LoadingButton } from '@mui/lab';
+
 
 const slides = [
   {
@@ -41,10 +44,6 @@ const slides = [
   },
 ];
 
-function handleClick() {
-  window.location.href = '/create-listing';
-}
-
 function SlideDots({ currentSlide, onClick }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , marginTop: 30}}>
@@ -69,6 +68,7 @@ function SlideDots({ currentSlide, onClick }) {
 
 function IntroSlides() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -77,6 +77,10 @@ function IntroSlides() {
 
     return () => clearTimeout(timer); // Clean up timer
   }, [currentSlide]);
+
+  const handleCreateListing = () => {
+    navigate("/listing/create");
+  };
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
@@ -88,7 +92,22 @@ function IntroSlides() {
         <Typography variant="body1">{slides[currentSlide].content}</Typography>
       </Box>
       <SlideDots currentSlide={currentSlide} onClick={handleDotClick} />
-      <Button sx={{marginTop: '50px'}} variant="contained" onClick={handleClick}>Create Listing</Button>
+      <LoadingButton
+     className={"custom-loading"}
+     fullWidth
+     variant="outlined"
+     color="secondary"
+     sx={{
+       alignSelf: 'end',
+       borderRadius: "6px",
+       background: "secondary",
+       boxShadow: "none",
+       marginTop: '50px' // Adjusted to match the original Button's marginTop
+     }}
+     onClick={handleCreateListing} // Use this for the button's onClick event
+   >
+     Create Listing
+   </LoadingButton>
     </div>
   );
 }
